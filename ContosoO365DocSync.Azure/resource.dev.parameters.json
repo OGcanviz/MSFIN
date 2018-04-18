@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "hostingPlanName": {
+            "value": "contosoo365docsyncdev"
+        },
+        "administratorLogin": {
+            "value": "contosoo365docsync"
+        },
+      "databaseName": {
+        "value": "contosoo365docsyncdev"
+      },
+        "skuName": {
+            "value": "F1"
+        },
+        "administratorLoginPassword": {
+            "value": "Dev@Canviz.com"
+        },
+        "storageAccountName": {
+            "value": "msfincontosoo365docsyncdev"
+        }
+    }
+}
