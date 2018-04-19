@@ -147,9 +147,9 @@ Contoso O365 Doc Sync Code Sample
 
 ## Register the application in AAD for WebJob
 
-1. Follow [Register the application in AAD for MVC Web App](#register-the-application-in-azure-active-directory-for-mvc-web-app) section to register another app named *ContosoO365DocSyncWebjob* and please refer to the table below when filling the value. 
+1. Follow [Register the application in AAD for MVC Web App](#register-the-application-in-azure-active-directory-for-mvc-web-app) section to register another app named *ContosoO365DocSyncWebJob* and please refer to the table below when filling the value. 
 
-	| SIGN-ON URL    | https://[websitename].azurewebsites.net  |
+	| **SIGN-ON URL**    | `https://[websitename].azurewebsites.net`  |
 
 2. Please make sure the following permissions are configured for the Azure AD  web job app.
 	
