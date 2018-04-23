@@ -4,11 +4,11 @@ Contoso O365 Doc Sync Code Sample
 
 [Prerequisites](#prerequisites)
 
+[Create Azure resources using ARM template](#create-azure-resources-using-arm-template)
+
 [Register the application in Azure Active Directory for MVC Web App](#register-the-application-in-azure-active-directory-for-mvc-web-app)
 
 [Register the application in AAD for WebJob](#register-the-application-in-aad-for-webjob)
-
-[Create Azure resources using ARM template](#create-azure-resources-using-arm-template)
 
 [Configure the communication between WebJob and O365 tenant](#configure-the-communication-between-webjob-and-o365-tenant)
 
@@ -51,131 +51,36 @@ Contoso O365 Doc Sync Code Sample
 1. An Azure subscription with permissions to register a new application, and deploy the Web App.
 2. You have an O365 account and you could contact your admin to consent the permission to access it.
 3. Visual Studio 2015 (any edition), [Visual Studio 2015 Community](https://go.microsoft.com/fwlink/?LinkId=691978&clcid=0x409) is available for free and ensure Latest Microsoft Office Developer Tools for Visual Studio 2015 is installed.
-4. Make sure you have [Outlook 2016](https://products.office.com/en-US/outlook/email-and-calendar-software-microsoft-outlook) installed.
-5. Familiarity with C#, .NET Web applications, JavaScript programming. 
-
-## Register the application in Azure Active Directory for MVC Web App
-
-1. Login the Azure AD using your O365 account. ([`https://portal.azure.com`](https://portal.azure.com)) 
-
-2. Click *App Registrations* on the left navigation and then click + New application registration button.
-
-   ![](Images/AddAADApp.png)
-
-3. In the Add Application wizard, enter a name of ContosoO365DocSyncWeb and choose the type Web Application and/or Web API.
-
-4. Enter a SIGN-ON URL
-	
-	`https://<websitename>.azurewebsites.net` For example: `https://contosoo365docsyncweb.azurewebsites.net`
-	
-	> Note: Sign-ON URL is the URL where you can sign in and use your app. 
-
-	![](Images/CreateApp.png)
-
-5. Click Create to create the registration.
- 
-6. Go back the App registrations page when the application created successfully.
-
-7. Search the application name and then click it. 
-
-   ![](Images/SearchAADApp.png)
-
-8. Obtain and store the application client ID.
-
-     - On the application, the GUID in Application ID is client ID and store it.
-
-	 ![](Images/ObtainApplicationId.png)
-
-9. Obtain and store the application client secret.
-	 
-	 - On the application, click Keys.
-
-	 ![](Images/EnterKeysSettings.png)
-
-	 - Enter Key Name and select Expires and then click Save.
-
-	 ![](Images/SaveSecretKeys.png)
-
-	 - After saved successfully copy and story the client secret.
-
-	 ![](Images/ObtainSeretKeys.png)
-
-	 - Store the copied client secret.
-
-10. Configure the reply URLS..
-
-     - On the application, click Reply URLs..
-
-       ![](Images/ClickReplyUrl.png)
-
-     - Delete all existing URLs, then enter the `https://<websitename>.azurewebsites.net/`, then click Save.
-     
-	 	> Note: You can find the web site name in the “Create Azure Resources” section above. 
-
-       ![](Images/SaveReplyUrl.png)
-
-11.	Configure the application permissions.
-
-     - On the application, click Required permissions.
-
-		![](Images/ClickRequiredPermissions.png)
-
-     - Make sure the Sign in and read user profile is selected of Windows Azure Active Directory.
-
-		![](Images/SignInReadProfile.png)
- 
-     - Click Add, select Office 365 SharePoint Online, select Read and write items and lists in all site collections and then click Select.
-
-		![](Images/SPReadAndWrite.png)
-	 
-     - Click Done.
- 
-     - Click Add, select Microsoft Graph, select Create, edit, and delete items and lists in all site collections and then click Select.
-
-		![](Images/SPCreateAndDelete.png)
- 
-     - Click Done.
-
-12.	Obtain and store the Azure AD tenant ID.
-
-     - Click Azure Active Directory in the left menu, and the click Properties in the middle menu.
-
-     - The GUID in Directory ID is tenant ID and store it.
-
-	 	![](Images/ObtainTenantId.png)
-
-
-## Register the application in AAD for WebJob
-
-1. Follow [Register the application in AAD for MVC Web App](#register-the-application-in-azure-active-directory-for-mvc-web-app) section to register another app named *ContosoO365DocSyncWebJob* and please refer to the table below when filling the value. 
-
-	| **SIGN-ON URL**    | `https://[websitename].azurewebsites.net`  |
-
-2. Please make sure the following permissions are configured for the Azure AD  web job app.
-	
-	![](Images/WebJobAppPermission1.png)
-
-	![](Images/WebJobAppPermission2.png)
-	
+4. Make sure you have [Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-5.7.0) installed.
+5. Make sure you have [Microsoft Azure Tools for Microsoft Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=51657) installed.
+6. Familiarity with C#, .NET Web applications, JavaScript programming. 
 
 ## Create Azure resources using ARM template
 
 1. Download the project and using visual studio 2015 to open it.
 
-2. Right click on the Azure resource group project *ContosoO365DocSync.Azure* and click *Deploy* | *New*.
+2. Right click on the Azure resource group project *ContosoO365DocSync.Azure* then click *Deploy* then click *New*.
 
    ![](Images/ARMTemplate.png)
 
-3. Fill the Azure login account and create a new resource group (**For example:**
-   *ContosoO365DocSync.QA*) then select the resource parameter json file (**For example:** *resource.qa.parameters.json*) & edit the parameter.
+3. Fill the following form.
+
+	- Login account.
+	- Select the subscription.
+	- Click *Create New*.
+	- Create a new resource group(**For example:** *ContosoO365DocSync.QA*).
+	- Select *resource.json*.
+	- Select *resource.qa.parameters.json*.
 
    ![](Images/resourcegroupdeployment.png)
 
-4. After clicking *Edit Parameters* and please fill the parameters below.
-
+4. Clicking *Edit Parameters* and please fill the parameters below, then select save passwords checkbox and then click *Save*.
+	
    ![](Images/editparameter.png)
 
-   > **Note:** Please select the checkbox to store the password as plain text in the parameters file.
+	> **Note**: Copy and store *webSiteName*, *administratorLogin* and *administratorLoginPassword* to a notepad, you will use them in the next steps.
+
+	![](Images/Info1.png)
 
    | **Parameter Name**            | **Value**                                | **Note**                                 |
    | ----------------------------- | :--------------------------------------- | ---------------------------------------- |
@@ -209,7 +114,117 @@ Contoso O365 Doc Sync Code Sample
    | storageAccountName | Storage  account    | LRS               | Same as above                            |
    | WebSiteName        | Application insight | basic             | Same as above                            |
 
-   ​
+
+## Register the application in Azure Active Directory for MVC Web App
+
+1. Login the Azure AD using your O365 account. ([`https://portal.azure.com`](https://portal.azure.com)) 
+
+2. Click *App Registrations* on the left navigation and then click + New application registration button.
+
+   ![](Images/AddAADApp.png)
+
+3. In the Add Application wizard, enter a name of ContosoO365DocSyncWeb and choose the type Web Application and/or Web API.
+
+4. Enter a SIGN-ON URL
+	
+	`https://<websitename>.azurewebsites.net` For example: `https://contosoo365docsyncweb.azurewebsites.net`
+	
+	> Note: Sign-ON URL is the URL where you can sign in and use your app. 
+
+	![](Images/CreateApp.png)
+
+5. Click Create to create the registration.
+ 
+6. Go back the App registrations page when the application created successfully.
+
+7. Search the application name and then click it. 
+
+   ![](Images/SearchAADApp.png)
+
+8. Obtain and store the application client ID.
+
+     - On the application, the GUID in Application ID is client ID and store it.
+
+	 ![](Images/ObtainApplicationId.png)
+
+	 ![](Images/Info2.png)
+
+9. Obtain and store the application client secret.
+	 
+	 - On the application, click Keys.
+
+	 ![](Images/EnterKeysSettings.png)
+
+	 - Enter Key Name and select Expires and then click Save.
+
+	 ![](Images/SaveSecretKeys.png)
+
+	 - After saved successfully copy and story the client secret.
+
+	 ![](Images/ObtainSeretKeys.png)
+
+	 - Store the copied client secret.
+
+10. Configure the reply URLS..
+
+     - On the application, click Reply URLs..
+
+       ![](Images/ClickReplyUrl.png)
+
+     - Delete all existing URLs, then enter the `https://<websitename>.azurewebsites.net/`, then click Save.
+     
+       ![](Images/SaveReplyUrl.png)
+		
+		> Note: You can find the web site name in the notepad.
+		
+		![](Images/Info3.png)
+		
+
+11.	Configure the application permissions.
+
+     - On the application, click Required permissions.
+
+		![](Images/ClickRequiredPermissions.png)
+
+     - Make sure the Sign in and read user profile is selected of Windows Azure Active Directory.
+
+		![](Images/SignInReadProfile.png)
+ 
+     - Click Add, select Office 365 SharePoint Online, select Read and write items and lists in all site collections and then click Select.
+
+		![](Images/SPReadAndWrite.png)
+	 
+     - Click Done.
+ 
+     - Click Add, select Microsoft Graph, select Create, edit, and delete items and lists in all site collections and then click Select.
+
+		![](Images/SPCreateAndDelete.png)
+ 
+     - Click Done.
+
+12.	Obtain and store the Azure AD tenant ID.
+
+     - Click Azure Active Directory in the left menu, and the click Properties in the middle menu.
+
+     - The GUID in Directory ID is tenant ID and store it.
+
+	 	![](Images/ObtainTenantId.png)
+
+		![](Images/Info4.png)
+
+
+## Register the application in AAD for WebJob
+
+1. Follow [Register the application in AAD for MVC Web App](#register-the-application-in-azure-active-directory-for-mvc-web-app) section to register another app named *ContosoO365DocSyncWebJob* and please refer to the table below when filling the value. 
+
+	| **SIGN-ON URL**    | `https://[websitename].azurewebsites.net`  |
+
+2. Please make sure the following permissions are configured for the Azure AD  web job app.
+	
+	![](Images/WebJobAppPermission1.png)
+
+	![](Images/WebJobAppPermission2.png)
+	​
 
 ## Configure the communication between WebJob and O365 tenant
 
@@ -217,7 +232,7 @@ Contoso O365 Doc Sync Code Sample
 
    - Execute the following command to create the self-certificate. 
 
-     `makecert -n "CN=MyCompanyName MyAppName Cert" -ss my -len 2048 -r -pe `
+     `makecert -n "CN=MyCompanyName MyAppName Cert" -ss my -len 1024 -r -pe `
 
    - Go to the personal certificate store under current user. 
 
