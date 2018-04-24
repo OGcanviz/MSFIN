@@ -116,17 +116,17 @@ Contoso O365 Doc Sync Code Sample
 
 ## Register the application in Azure Active Directory for MVC Web App
 
-1. Login the Azure AD using your O365 account. ([`https://portal.azure.com`](https://portal.azure.com)) 
+1. Login the [Azure portal](https://portal.azure.com) using your O365 account.
 
-2. Click *App Registrations* on the left navigation and then click + New application registration button.
+2. Click *App Registrations* on the left navigation and then click *+ New application registration* button.
 
    ![](Images/AddAADApp.png)
 
 3. In the Add Application wizard, enter a name of ContosoO365DocSyncWeb and choose the type Web Application and/or Web API.
 
-4. Enter a SIGN-ON URL
+4. Enter a SIGN-ON URL.
 	
-	`https://<appName>.azurewebsites.net` For example: `https://contosoo365docsyncweb.azurewebsites.net`
+	`https://<appName>.azurewebsites.net` For example: `https://contosoo365docsyncweb.azurewebsites.net`.
 	
 	> Note: Sign-ON URL is the URL where you can sign in and use your app. 
 
@@ -156,7 +156,7 @@ Contoso O365 Doc Sync Code Sample
 
 	 ![](Images/SaveSecretKeys.png)
 
-	 - After saved successfully copy and story the client secret.
+	 - After saved successfully copy and story the `client secret`.
 
 	 ![](Images/ObtainSeretKeys.png)
 
@@ -286,7 +286,7 @@ Contoso O365 Doc Sync Code Sample
 
 4. Configure the application settings in Azure portal.
 
-   - Login in [Azure portal](https://portal.azure.com/).
+   - Login the [Azure portal](https://portal.azure.com/).
    - Go to the resource groups you created in this [section](#create-azure-resources-using-arm-template).
    - Click the web site.
    
@@ -328,7 +328,7 @@ Contoso O365 Doc Sync Code Sample
 
 5. Update the manifest file.
 
-   - Login in [Azure portal](https://portal.azure.com/).
+   - Login the [Azure portal](https://portal.azure.com/).
    - Go to the ADD App you created in this [section](#register-the-application-in-aad-for-webjob).
    - Download the manifest file from the AAD App for the WebJob.
 
@@ -347,23 +347,23 @@ Contoso O365 Doc Sync Code Sample
 
 1. Open the project using visual studio 2015 if you already download it. 
 
-2. Right click on *ContosoO365DocSync.Web* and then select *'Publish'*
+2. Right click on *ContosoO365DocSync.Web* and then select *Publish*
 
 3. A *Publish* popup will be displayed.
 
 4. Click on *Microsoft Azure App Service*.
 
-5. Sign in with Azure account and select the Azure website then click '*OK*'.
+5. Sign in with Azure account and select the Azure website then click *OK*.
 
-6. Select Web Deploy and then click *'Next'*.
+6. Select Web Deploy and then click *Next*.
 
-7. Select Debug and click *'Next'*.
+7. Select Debug and click *Next*.
 
    ![](Images/WebDeployDebug.png)
 
-8. Click *'Publish'*.
+8. Click *Publish*.
 
-9. Make sure you can open the `https://<webSiteName>.azurewebsites.net` web site, it is blank.
+9. Make sure you can open the `https://<webSiteName>.azurewebsites.net` site and it is blank.
 
 	> **NOTE**: You can find the `webSiteName` in step 4 in this [section](#create-azure-resources-using-arm-template).
 
@@ -372,19 +372,19 @@ Contoso O365 Doc Sync Code Sample
 
 1. Create Key Vault.
 
-	1. Go to the resource group in Azure portal. ([`https://portal.azure.com`](https://portal.azure.com))
+	1. Go to the resource group in [Azure portal](https://portal.azure.com).
 
-	2. Click **Add** on the top menu.
+	2. Click *Add* on the top menu.
 	
 		![](Images/ClickAddInResourceGroup.png)
 
-	3. In the new page, type **key vault** and then select **Key Vault**.
+	3. In the new page, type *key vault* and then select *Key Vault*.
 	
 		![](Images/SelectKeyVault.png)
 		
 		![](Images/SelectKeyVault2.png)
 
-	4. Click **Create**.
+	4. Click *Create*.
 
 	5. Fill the form.
 
@@ -395,15 +395,15 @@ Contoso O365 Doc Sync Code Sample
 	
 		![](Images/KeyVaultForm.png)
 
-	6. Click **Access policies**, then click **Add new**, then click **Select principal**.
+	6. Click *Access policies*, then click *Add new*, then click *Select principal*.
 
 		![](Images/SelectAccessPolicies.png)
 
-	7. Type the **application id** then select the application, and then click **Select**.
+	7. Type the *application id* then select the application, and then click *Select*.
 
 		![](Images/AddPrincipal.png)
 
-	8. Select the following **key permissions** and then click **OK**.
+	8. Select the following *key permissions* and then click *OK*.
 	
 		![](Images/AddKeyPermission.png)
 
@@ -411,15 +411,15 @@ Contoso O365 Doc Sync Code Sample
 
 		![](Images/SelectUserInPolicies.png)
 	
-	10. Select the following **key permissions** and then click **OK**.
+	10. Select the following *key permissions* and then click *OK*.
 
 		![](Images/UserPolicy.png)
 
-	11. Click **OK** in Access policies page.
+	11. Click *OK* in Access policies page.
 
 		![](Images/ClickOkInAccessPolicies.png)
 
-	12. Click **Create** in create key vault page.
+	12. Click *Create* in create key vault page.
 
 		![](Images/CreateKeyVault.png)
 	
@@ -435,17 +435,17 @@ Contoso O365 Doc Sync Code Sample
 
 		![](Images/ConnectionToDatabase.png)
 
-	3. Expand the database and table, then right click on **SourcePoints**, then select **Encrypt Columns**.
+	3. Expand the database and table, then right click on *SourcePoints*, then select *Encrypt Columns*.
 
 		![](Images/EncryptTheSourcePoints.png)
 
-	4. Click **Next** in **Introduction** page.
+	4. Click *Next* in *Introduction* page.
 
-	5. Select the **encryption type** and **key** as below and then click **Next**.
+	5. Select the *encryption type* and *key* as below and then click *Next*.
 
 		![](Images/SelectColumnsInSP.png)
 
-	6. Configure master key and then click **Next**.
+	6. Configure master key and then click *Next*.
 
 		- Select auto generate column master key.
 		- Select Azure Key Vault.
@@ -454,23 +454,23 @@ Contoso O365 Doc Sync Code Sample
 
 		![](Images/ConfigMasterKey.png)
 
-	7. In the **Run Settings** page, select **Proceed to finish now** and then click **Next**.
+	7. In the *Run Settings* page, select *Proceed to finish now* and then click *Next*.
 
-	8. In the **Summary** page, click **Finish to verify that the settings are all correct** and then click **Close** to complete the setup for Always Encrypted.
+	8. In the *Summary* page, click *Finish to verify that the settings are all correct* and then click *Close* to complete the setup for Always Encrypted.
 
-	9. Right click on **PublishedHistories** and then select **Encrypt Columns**.
+	9. Right click on *PublishedHistories* and then select *Encrypt Columns*.
 
-	10. Click **Next**.
+	10. Click *Next*.
 
-	11. Select the **encryption type** and **key** as below and then click **Next**.
+	11. Select the *encryption type* and *key* as below and then click *Next*.
 
 		![](Images/SelectColumnsInPH.png)
 
-	12. Click **Next** in **Master Key Configuration** page.
+	12. Click *Next* in *Master Key Configuration* page.
 
-	13. Select **proceed to finish now** and click **Next** in **Run Settings** page.
+	13. Select *proceed to finish now* and click *Next* in *Run Settings* page.
 
-	14. Click **Finish** in **Summary** page.
+	14. Click *Finish* in *Summary* page.
 
 
 ## Encrypt string
@@ -584,7 +584,7 @@ Contoso O365 Doc Sync Code Sample
 
 5. Click *Trusted Add-in Catalogs* | Add catalog URL.
 
-   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatelog`
+   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatalog`
 
    ![](Images/TrustCatalog.png)
 
@@ -616,7 +616,7 @@ Contoso O365 Doc Sync Code Sample
 
 5. Click *Trusted Add-in Catalogs* | Add catalog URL
 
-   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatelog`
+   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatalog`
 
 6. Restart Word.
 
@@ -641,7 +641,7 @@ Contoso O365 Doc Sync Code Sample
 
 5. Click *Trusted Add-in Catalogs* | Add catalog URL
 
-   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatelog`
+   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatalog`
 
 6. Restart PowerPoint.
 
@@ -728,7 +728,7 @@ Contoso O365 Doc Sync Code Sample
 
 ## How to view Azure SQL data?
 
-1. Login the Azure portal. [https://portal.azure.com](https://portal.azure.com) 
+1. Login the [Azure portal](https://portal.azure.com).
 
 2. Select the SQL Server created in this [section](#create-azure-resources-using-arm-template).
 
@@ -770,7 +770,7 @@ Contoso O365 Doc Sync Code Sample
 
 ## How to view data in the storage account? 
 
-1. Login the Azure portal. [https://portal.azure.com](https://portal.azure.com) 
+1. Login the [Azure portal](https://portal.azure.com). 
 
 2. Select he storage account created in this [section](#create-azure-resources-using-arm-template).
 
@@ -828,7 +828,7 @@ Contoso O365 Doc Sync Code Sample
 
 ## How to check WebJob status?
 
-1. Login the Azure portal. [https://portal.azure.com](https://portal.azure.com)
+1. Login the [Azure portal](https://portal.azure.com).
 
 2. Select website created in this [section](#create-azure-resources-using-arm-template). 
 
