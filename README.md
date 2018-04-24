@@ -312,7 +312,6 @@ Contoso O365 Doc Sync Code Sample
    | CertificateFile     | web site relative path                   | Step 2 in this [section](#configure-the-communication-between-webjob-and-o365-tenant)        | 
    | ida:clientID              | GUID                                  | Step 8 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
    | ida:clientSecret          | String                                | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-   | ida:domain                | <yourTenantName>.onmicrosoft.com        |                                          |
    | ida:PostLogoutRedirectUri | https://<webSiteName>.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
    | ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
   
@@ -363,7 +362,7 @@ Contoso O365 Doc Sync Code Sample
 
 8. Click *Publish*.
 
-9. Make sure you can open the `https://<webSiteName>.azurewebsites.net` site and it is blank.
+9. After published successfully, make sure you can open the `https://<webSiteName>.azurewebsites.net` site and it is blank.
 
 	> **NOTE**: You can find the `webSiteName` in step 4 in this [section](#create-azure-resources-using-arm-template).
 
