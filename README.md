@@ -655,7 +655,7 @@ Contoso O365 Doc Sync Code Sample
 
 1. Work with your O365 admin to go to admin consent page in the browser. 
 
-   **For example:** `https://<webSiteName>.azurewebsites.net/Admin/Consents`
+   **For example:** `https://<webSiteName>.azurewebsites.net/Admin/Consent`
 
 	> Note: You can find the webSiteName in step 4 in this [section](#create-azure-resources-using-arm-template).
 
