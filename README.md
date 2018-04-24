@@ -83,7 +83,7 @@ Contoso O365 Doc Sync Code Sample
 
    | **Parameter Name**            | **Value**                                | **Note**                                 |
    | ----------------------------- | :--------------------------------------- | ---------------------------------------- |
-   | webSiteName                   | <WebSiteName>  **For example:** *ContosoO365DocSyncQAWebApp* |                                          |
+   | webSiteName                   | <webSiteName>  **For example:** *ContosoO365DocSyncQAWebApp* |                                          |
    | sqlserverName                 | <SQLServerName>  **For example:**  *ContosoO365DocSyncQASQL* | The SQL Server name                      |
    | hostingPlanName               | <hostingPlanName>  **For example:**  ContosoO365DocSyncQAHostPlan | The name of the App Service plan to use for hosting the Web App. |
    | skuName                       | <skuName>  **For example: **  F1         |                                          |
@@ -107,11 +107,11 @@ Contoso O365 Doc Sync Code Sample
 
    | **Resource Name**  | **Resource Type**   | **Pricing Level** | **Resource Group**                       |
    | ------------------ | ------------------- | ----------------- | ---------------------------------------- |
-   | WebSiteName        | App Service         | F1                | Resource group created in the step 3 above. |
-   | SQLServerName      | SQL Server          | N/A               | Same as above                            |
+   | webSiteName        | App Service         | F1                | Resource group created in the step 3 above. |
+   | sqlserverName      | SQL Server          | N/A               | Same as above                            |
    | databaseName       | SQL database        | basic             | Same as above                            |
    | storageAccountName | Storage  account    | LRS               | Same as above                            |
-   | WebSiteName        | Application insight | basic             | Same as above                            |
+   | webSiteName        | Application insight | basic             | Same as above                            |
 
 
 ## Register the application in Azure Active Directory for MVC Web App
@@ -545,7 +545,9 @@ Contoso O365 Doc Sync Code Sample
 
    - Update the icon url default value to the one provisioned in Azure.
 
-	 **For example:** `[https://<yourwebsitename>.azurewebsites.net/Images/logo.png](https://<yourwebsitename>.azurewebsites.net/Images/logo.png)`   
+	 **For example:** `https://<webSiteName>.azurewebsites.net/Images/logo.png`.
+
+	 > Note: You can find the webSiteName in step 4 in this [section](#create-azure-resources-using-arm-template).  
 
    - Update the hosts to the following elements.
    	
@@ -558,7 +560,9 @@ Contoso O365 Doc Sync Code Sample
    
    - Update the source location default value to the one provisioned in Azure.
 
-     **For example:** `[https://<yourwebsitename>.azurewebsites.net/Home/Index](https://<yourwebsitename>.azurewebsites.net/Home/Index)` 
+     **For example:** `https://<webSiteName>.azurewebsites.net/Home/Index`.
+
+	> Note: You can find the webSiteName in step 4 in this [section](#create-azure-resources-using-arm-template).
 
      ![](Images/excelmanifest.png)
 
@@ -652,7 +656,9 @@ Contoso O365 Doc Sync Code Sample
 
 1. Work with your O365 admin to go to admin consent page in the browser. 
 
-   **For example:** `https://<yourwebsitename>.azurewebsites.net/Admin/Consents`
+   **For example:** `https://<webSiteName>.azurewebsites.net/Admin/Consents`
+
+	> Note: You can find the webSiteName in step 4 in this [section](#create-azure-resources-using-arm-template).
 
 2. Ensure the WebJob is in running status. Please refer to this [section](#how-to-check-webjob-status) on how to check the WebJob status.
 
