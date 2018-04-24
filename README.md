@@ -12,9 +12,9 @@ Contoso O365 Doc Sync Code Sample
 
 [Configure the communication between WebJob and O365 tenant](#configure-the-communication-between-webjob-and-o365-tenant)
 
-[Configure always encrypted feature for database](#configure-always-encrypted-feature-for-database)
-
 [Deploy the sample to Azure](#deploy-the-sample-to-azure)
+
+[Configure always encrypted feature for database](#configure-always-encrypted-feature-for-database)
 
 [Encrypt string](#encrypt-string)
 
@@ -78,9 +78,8 @@ Contoso O365 Doc Sync Code Sample
 	
    ![](Images/editparameter.png)
 
-	> **Note**: Copy and store *webSiteName*, *administratorLogin* and *administratorLoginPassword* to a notepad, you will use them in the next steps.
+	> **Note**: Copy and store `webSiteName`, `administratorLogin` and `administratorLoginPassword`, you will use them in the next steps.
 
-	![](Images/Info1.png)
 
    | **Parameter Name**            | **Value**                                | **Note**                                 |
    | ----------------------------- | :--------------------------------------- | ---------------------------------------- |
@@ -127,7 +126,7 @@ Contoso O365 Doc Sync Code Sample
 
 4. Enter a SIGN-ON URL
 	
-	`https://<websitename>.azurewebsites.net` For example: `https://contosoo365docsyncweb.azurewebsites.net`
+	`https://<appName>.azurewebsites.net` For example: `https://contosoo365docsyncweb.azurewebsites.net`
 	
 	> Note: Sign-ON URL is the URL where you can sign in and use your app. 
 
@@ -143,11 +142,9 @@ Contoso O365 Doc Sync Code Sample
 
 8. Obtain and store the application client ID.
 
-     - On the application, the GUID in Application ID is client ID and store it.
+     - On the application, the GUID in Application ID is `client ID` and store it.
 
 	 ![](Images/ObtainApplicationId.png)
-
-	 ![](Images/Info2.png)
 
 9. Obtain and store the application client secret.
 	 
@@ -171,15 +168,12 @@ Contoso O365 Doc Sync Code Sample
 
        ![](Images/ClickReplyUrl.png)
 
-     - Delete all existing URLs, then enter the `https://<websitename>.azurewebsites.net/`, then click Save.
+     - Delete all existing URLs, then enter the `https://<webSiteName>.azurewebsites.net/`, then click Save.
      
        ![](Images/SaveReplyUrl.png)
 		
-		> Note: You can find the web site name in the notepad.
+		> Note: You can find the webSiteName in step 4 in this [section](#create-azure-resources-using-arm-template).
 		
-		![](Images/Info3.png)
-		
-
 11.	Configure the application permissions.
 
      - On the application, click Required permissions.
@@ -206,11 +200,9 @@ Contoso O365 Doc Sync Code Sample
 
      - Click Azure Active Directory in the left menu, and the click Properties in the middle menu.
 
-     - The GUID in Directory ID is tenant ID and store it.
+     - The GUID in Directory ID is `tenant ID` and store it.
 
 	 	![](Images/ObtainTenantId.png)
-
-		![](Images/Info4.png)
 
 
 ## Register the application in AAD for WebJob
@@ -237,14 +229,16 @@ Contoso O365 Doc Sync Code Sample
    - Go to the personal certificate store under current user. 
 
    - Export the CER certificate with base 64 encoded X.509.
+   
+	 ![](Images/ExportCert.png)
 
-     ![](Images/ExportCER.png)
+	 ![](Images/ExportCert2.png)
 
    - Execute the following PowerShell command.
 
      ```powershell
      $cer = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
-     $cer.Import("<absolute path of the CER file> Example c:\mycert.cer>") 
+     $cer.Import("<absolute path of the CER file>") 
      $bin = $cer.GetRawCertData()
      $base64Value = [System.Convert]::ToBase64String($bin)
      $bin = $cer.GetCertHash()
@@ -256,8 +250,10 @@ Contoso O365 Doc Sync Code Sample
 	 Write-Host "---"
 	 Write-Host $KeyId
      ```
-
-   - Store the base64Value; $base64Thumbprint; keyid that will be used in other places.
+	
+	 > **NOTE**: Please update the CER file path. **For example**: c:\mycert.cer
+	
+   - Store the `base64Value`, `$base64Thumbprint` and `keyid` that will be used in other places.
 
      > **Note:** **If MAKECERT is not available, please download the Windows SDK and install the tool only in the screenshot below.**
 
@@ -268,27 +264,38 @@ Contoso O365 Doc Sync Code Sample
 2. Export PFX certificate
 
    - Export the PFX certificate from the self-certificate
+   		
+	![](Images/ExportCert3.png)	
+
    - Store the password when exporting the PFX certificate.
    - Store the PFX certificate. 
 
 3. Download the project & include the certificate. 
 
-   - Open the solution.
+   - Open then project in visual studio 2015.
 
    - Include the PFX certificate in ContosoO365DocSync.WebJob project. 
 
-   ![](Images/PFX.png)
+	![](Images/PFX.png)
 
    - Include the PFX certificate in ContosoO365DocSync.DocumentWebJob project.
 
-   ![](Images/PFX2.png)
+	![](Images/PFX2.png)
 
    **For example:** contosoo365docsync.pfx.
 
-4. Configure the app settings in Azure portal
+4. Configure the application settings in Azure portal.
+
+   - Login in [Azure portal](https://portal.azure.com/).
+   - Go to the resource groups you created in this [section](#create-azure-resources-using-arm-template).
+   - Click the web site.
+   
+	![](Images/Websitename.png)
 
    - Go to the application settings.
-
+   
+	![](Images/GotoAppSettings.png) 
+  		
    - Locate the App settings node.
 
      ![](Images/appsetting.png)
@@ -301,11 +308,19 @@ Contoso O365 Doc Sync Code Sample
    | ida:WebJobClientId  | The application ID of the AAD App for WebJob | Find it in the AAD App for WebJob.       |
    | CertificatePassword | The password when exporting the certificate | Step 2 in this [section](#configure-the-communication-between-webjob-and-o365-tenant) |
    | ida:AADInstance     | [https://login.microsoftonline.com/](https://login.microsoftonline.com/) | Fixed value                              |
-   | ida:TenantId        | The Azure Tenant ID                      | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+   | ida:TenantId        | The Azure Tenant ID                      | Step 12 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
    | SharePointUrl       | The root site collection of the O365    site | **For example:**  [https://yourtenant.sharepoint.com](https://yourtenantsharepoint.com) | 
-   | Key						| 18, 7, 19, 11, 24, 226, 85, 45, 88, 184, 27, 162, 37, 112, 183, 209, 241, 24, 175, 176, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 55 | Encrypt key, this is fixed value
+   | Key						| 23, 7, 19, 11, 24, 226, 85, 45, 114, 184, 27, 162, 37, 112, 222, 209, 241, 24, 175, 144, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 209 | Encrypt key, this is fixed value
    | CertificateFile     | web site relative path                   | **For example:**  contosoo365docsync.pfx        | 
-
+   | ida:clientID              | GUID                                  | Step 8 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+   | ida:clientSecret          | String                                | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+   | ida:TenantID              | GUID                                  | Step 12 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+   | ida:domain                | {yourTenantName}.onmicrosoft.com        |                                          |
+   | ida:PostLogoutRedirectUri | https://{webSiteName}.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
+   | ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
+   | SharePointUrl           	| https://{yourTenantName}.sharepoint.com | The root site collection of the O365 site             
+   | Key						| 23, 7, 19, 11, 24, 226, 85, 45, 114, 184, 27, 162, 37, 112, 222, 209, 241, 24, 175, 144, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 209 | Encrypt key, this is fixed value  
+   
    - Update the following connection settings.      
 
    | **Connection  setting **   | **Value**                                | **Notes**                                |
@@ -317,9 +332,13 @@ Contoso O365 Doc Sync Code Sample
 
 5. Update the manifest file.
 
+   - Login in [Azure portal](https://portal.azure.com/).
+   - Go to the ADD App you created in this [section](#register-the-application-in-aad-for-webjob).
    - Download the manifest file from the AAD App for the WebJob.
-   - Edit XXX following the template below
-   - Upload the manifest file
+
+	![](Images/DownloadManifest.png)	
+
+   - Edit XXX following the template below and then upload the manifest file.
 
 | **Key**             | **Value**         | **Notes**                                |
 | ------------------- | ----------------- | ---------------------------------------- |
@@ -327,6 +346,40 @@ Contoso O365 Doc Sync Code Sample
 | keyId               | $keyid            | Step 1.5 in this [section](#configure-the-communication-between-webjob-and-o365-tenant). |
 | value               | $base64Value      | Step 1.5 in this [section](#configure-the-communication-between-webjob-and-o365-tenant) |
 
+
+## Deploy the sample to Azure
+
+1. Open the project using visual studio 2015 if you already download it. 
+2. Update the configuration settings in the `web.config` as the table below.
+
+| App Setting               | Value                                 | Note                                     |
+| ------------------------- | ------------------------------------- | ---------------------------------------- |
+| ida:clientID              | GUID                                  | Step 8 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+| ida:clientSecret          | String                                | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+| ida:TenantID              | GUID                                  | Step 12 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
+| ida:domain                | {yourTenantName}.onmicrosoft.com        |                                          |
+| ida:PostLogoutRedirectUri | https://{webSiteName}.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
+| ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
+| SharePointUrl           	| https://{yourTenantName}.sharepoint.com | The root site collection of the O365 site             
+| Key						| 23, 7, 19, 11, 24, 226, 85, 45, 114, 184, 27, 162, 37, 112, 222, 209, 241, 24, 175, 144, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 209 | Encrypt key, this is fixed value      
+
+![](Images/configuration.png)
+
+3. Right click on *ContosoO365DocSync.Web* and then select *'Publish'*
+
+4. A *Publish* popup will be displayed.
+
+5. Click on *Microsoft Azure App Service.*
+
+6. Sign in with Azure account and select the Azure website then click '*OK*'
+
+7. Select Web Deploy and then click *'Next'*
+
+8. Select Debug and click *'Next'*
+
+   ![](Images/WebDeployDebug.png)
+
+9. Click *'Publish'*
 
 ## Configure always encrypted feature for database
 **The application you registered and the azure resource group you created must be in same domain.** 
@@ -432,41 +485,6 @@ Contoso O365 Doc Sync Code Sample
 	13. Select **proceed to finish now** and click **Next** in **Run Settings** page.
 
 	14. Click **Finish** in **Summary** page.
-
-
-## Deploy the sample to Azure
-
-1. Open the project using visual studio 2015 if you already download it. 
-2. Update the configuration settings in the table below.
-
-| App Setting               | Value                                 | Note                                     |
-| ------------------------- | ------------------------------------- | ---------------------------------------- |
-| ida:clientID              | GUID                                  | Step 10 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-| ida:clientSecret          | String                                | Step 11 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-| ida:TenantID              | GUID                                  | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-| ida:domain                | yourtenantname.onmicrosoft.com        |                                          |
-| ida:PostLogoutRedirectUri | https://websitename.azurewebsites.net/ | Azure web site URL                       |
-| ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
-| SharePointUrl           	| https://yourtenantname.sharepoint.com | The root site collection of the O365 site             
-| Key						| 18, 7, 19, 11, 24, 226, 85, 45, 88, 184, 27, 162, 37, 112, 183, 209, 241, 24, 175, 176, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 55 | Encrypt key, this is fixed value      
-
-![](Images/configuration.png)
-
-3. Right click on *ContosoO365DocSync.Web* and then select *'Publish'*
-
-4. A *Publish* popup will be displayed.
-
-5. Click on *Microsoft Azure App Service.*
-
-6. Sign in with Azure account and select the Azure website then click '*Next*'
-
-7. Select Web Deploy and then click *'Next'*
-
-8. Select Debug and click *'Next'*
-
-   ![](Images/WebDeployDebug.png)
-
-9. Click *'Publish'*
 
 
 ## Encrypt string
