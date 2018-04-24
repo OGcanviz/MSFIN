@@ -209,7 +209,7 @@ Contoso O365 Doc Sync Code Sample
 
 1. Follow [Register the application in AAD for MVC Web App](#register-the-application-in-azure-active-directory-for-mvc-web-app) section to register another app named *ContosoO365DocSyncWebJob* and please refer to the table below when filling the value. 
 
-	| **SIGN-ON URL**    | `https://[websitename].azurewebsites.net`  |
+	| **SIGN-ON URL**    | `https://[appWebJobName].azurewebsites.net`  |
 
 2. Please make sure the following permissions are configured for the Azure AD  web job app.
 	
@@ -298,28 +298,24 @@ Contoso O365 Doc Sync Code Sample
   		
    - Locate the App settings node.
 
-     ![](Images/appsetting.png)
-
    - Fill the following app settings.   
 
    | **App  setting **   | **Value**                                | **Notes**                                |
    | ------------------- | ---------------------------------------- | :--------------------------------------- |
    | InstrumentationKey  | Application Insight Instrumentation key. | Find it in the application insights      |
-   | ida:WebJobClientId  | The application ID of the AAD App for WebJob | Find it in the AAD App for WebJob.       |
+   | ida:WebJobClientId  | The application ID of the AAD App for WebJob | Find it in the AAD App for WebJob in this [section](#user-content-register-the-application-in-aad-for-webjob).       |
    | CertificatePassword | The password when exporting the certificate | Step 2 in this [section](#configure-the-communication-between-webjob-and-o365-tenant) |
    | ida:AADInstance     | [https://login.microsoftonline.com/](https://login.microsoftonline.com/) | Fixed value                              |
    | ida:TenantId        | The Azure Tenant ID                      | Step 12 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
    | SharePointUrl       | The root site collection of the O365    site | **For example:**  [https://yourtenant.sharepoint.com](https://yourtenantsharepoint.com) | 
    | Key						| 23, 7, 19, 11, 24, 226, 85, 45, 114, 184, 27, 162, 37, 112, 222, 209, 241, 24, 175, 144, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 209 | Encrypt key, this is fixed value
-   | CertificateFile     | web site relative path                   | **For example:**  contosoo365docsync.pfx        | 
+   | CertificateFile     | web site relative path                   | Step 2 in this [section](#configure-the-communication-between-webjob-and-o365-tenant)        | 
    | ida:clientID              | GUID                                  | Step 8 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
    | ida:clientSecret          | String                                | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-   | ida:TenantID              | GUID                                  | Step 12 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-   | ida:domain                | {yourTenantName}.onmicrosoft.com        |                                          |
-   | ida:PostLogoutRedirectUri | https://{webSiteName}.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
+   | ida:domain                | <yourTenantName>.onmicrosoft.com        |                                          |
+   | ida:PostLogoutRedirectUri | https://<webSiteName>.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
    | ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
-   | SharePointUrl           	| https://{yourTenantName}.sharepoint.com | The root site collection of the O365 site             
-   | Key						| 23, 7, 19, 11, 24, 226, 85, 45, 114, 184, 27, 162, 37, 112, 222, 209, 241, 24, 175, 144, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 209 | Encrypt key, this is fixed value  
+  
    
    - Update the following connection settings.      
 
@@ -350,36 +346,26 @@ Contoso O365 Doc Sync Code Sample
 ## Deploy the sample to Azure
 
 1. Open the project using visual studio 2015 if you already download it. 
-2. Update the configuration settings in the `web.config` as the table below.
 
-| App Setting               | Value                                 | Note                                     |
-| ------------------------- | ------------------------------------- | ---------------------------------------- |
-| ida:clientID              | GUID                                  | Step 8 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-| ida:clientSecret          | String                                | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-| ida:TenantID              | GUID                                  | Step 12 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-| ida:domain                | {yourTenantName}.onmicrosoft.com        |                                          |
-| ida:PostLogoutRedirectUri | https://{webSiteName}.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
-| ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
-| SharePointUrl           	| https://{yourTenantName}.sharepoint.com | The root site collection of the O365 site             
-| Key						| 23, 7, 19, 11, 24, 226, 85, 45, 114, 184, 27, 162, 37, 112, 222, 209, 241, 24, 175, 144, 176, 53, 196, 29, 24, 26, 17, 218, 131, 236, 53, 209 | Encrypt key, this is fixed value      
+2. Right click on *ContosoO365DocSync.Web* and then select *'Publish'*
 
-![](Images/configuration.png)
+3. A *Publish* popup will be displayed.
 
-3. Right click on *ContosoO365DocSync.Web* and then select *'Publish'*
+4. Click on *Microsoft Azure App Service*.
 
-4. A *Publish* popup will be displayed.
+5. Sign in with Azure account and select the Azure website then click '*OK*'.
 
-5. Click on *Microsoft Azure App Service.*
+6. Select Web Deploy and then click *'Next'*.
 
-6. Sign in with Azure account and select the Azure website then click '*OK*'
-
-7. Select Web Deploy and then click *'Next'*
-
-8. Select Debug and click *'Next'*
+7. Select Debug and click *'Next'*.
 
    ![](Images/WebDeployDebug.png)
 
-9. Click *'Publish'*
+8. Click *'Publish'*.
+
+9. Make sure you can open the `https://<webSiteName>.azurewebsites.net` web site, it is blank.
+
+	> **NOTE**: You can find the `webSiteName` in step 4 in this [section](#create-azure-resources-using-arm-template).
 
 ## Configure always encrypted feature for database
 **The application you registered and the azure resource group you created must be in same domain.** 
@@ -523,8 +509,10 @@ Contoso O365 Doc Sync Code Sample
 4. Edit the connection string below and then store it.
 
 	`
-	Data Source={server address};Initial Catalog={catalog name};User Id={user name};Password={password};MultipleActiveResultSets=False;Encrypt=True;Column Encryption Setting=Enabled;
+	Data Source=<server address>;Initial Catalog=<catalog name>;User Id=<administratorLogin>;Password=<administratorLoginPassword>;MultipleActiveResultSets=False;Encrypt=True;Column Encryption Setting=Enabled;
 	`
+	
+	> **NOTE**: You can find the `administratorLogin` and `administratorLoginPassword` in step 4 in this [section](#create-azure-resources-using-arm-template). 
 	
 	> For example: 
 	> Data Source=tcp:msfincontosoo365docsyncd.database.windows.net,1433;Initial Catalog=contosoo365docsyncd;
@@ -539,7 +527,7 @@ Contoso O365 Doc Sync Code Sample
 
 1. Go to the app for Office add-in management page. 
 
-   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatelog/AgaveCatalog/Forms/AllItems.aspx` 
+   **For example:** `https://<tenantname>.sharepoint.com/sites/AppCatalog/AgaveCatalog/Forms/AllItems.aspx` 
 
 2. Click *'Upload'*
 
