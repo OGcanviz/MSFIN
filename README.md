@@ -28,7 +28,7 @@ Contoso O365 Doc Sync Code Sample
 
 [Install PowerPoint Add-in](#install-powerpoint-add-in)
 
-[Run Excel, Word & PowerPoint Add-ins](#run-excel-word-powerpoint-add-ins)
+[Run Excel, Word & PowerPoint Add-ins](#run-excel-word--powerpoint-add-ins)
 
 [How to view Azure SQL data?](#how-to-view-azure-sql-data)
 
@@ -156,7 +156,7 @@ Contoso O365 Doc Sync Code Sample
 
 	 ![](Images/SaveSecretKeys.png)
 
-	 - After saved successfully copy and story the `client secret`.
+	 - After saved successfully copy and store the `client secret`.
 
 	 ![](Images/ObtainSeretKeys.png)
 
@@ -224,7 +224,10 @@ Contoso O365 Doc Sync Code Sample
 
    - Execute the following command to create the self-certificate. 
 
-     `makecert -n "CN=MyCompanyName MyAppName Cert" -ss my -len 1024 -r -pe `
+     `makecert -n "CN=MyCompanyName MyAppName Cert" -ss my -len 1024 -r -pe`
+
+	> **NOTE**: Please update the MyCompanyName and MyAppName. **For example**:  
+	> `makecert -n "CN=ContosoLLC ContosoO365Sync Cert" -ss my -len 1024 -r -pe `
 
    - Go to the personal certificate store under current user. 
 
@@ -312,7 +315,7 @@ Contoso O365 Doc Sync Code Sample
    | CertificateFile     | web site relative path                   | Step 2 in this [section](#configure-the-communication-between-webjob-and-o365-tenant)        | 
    | ida:clientID              | GUID                                  | Step 8 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
    | ida:clientSecret          | String                                | Step 9 in this [section](#register-the-application-in-azure-active-directory-for-mvc-web-app) |
-   | ida:PostLogoutRedirectUri | https://<webSiteName>.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
+   | ida:PostLogoutRedirectUri | https://<<webSiteName>>.azurewebsites.net/ | Step 4 in this [section](#create-azure-resources-using-arm-template)                       |
    | ResourceId                | https://graph.microsoft.com           | this is fixed value                      |
   
    
@@ -356,7 +359,7 @@ Contoso O365 Doc Sync Code Sample
 
 6. Select Web Deploy and then click *Next*.
 
-7. Select Debug and click *Next*.
+7. Select Release and unchecked the *Enable Organizational Authentication* then click *Next*.
 
    ![](Images/WebDeployDebug.png)
 
@@ -685,7 +688,6 @@ Contoso O365 Doc Sync Code Sample
 
      - Select the range (only one cell is supported, please do not double click the cell.  Click Esc if double click the cell.)
      - Click the populating cell address button
-     - Select group
      - Select the range (only one cell is supported, please do not double click the cell.  Click Esc if double click the cell.)
      - Click the populating cell address button
      - Save the changes
@@ -698,15 +700,13 @@ Contoso O365 Doc Sync Code Sample
 
    ![](Images/addestinationpoint.png)
 
-9. Select the Excel file hosts the source points and select one source point. 
+9. Select the Excel file hosts the source points. 
 
    ![](Images/fileexplorer.png)
 
+10. Put the cursor in the word then select one source point and then click the Add button.
+
    ![](Images/selectsps.png)
-
-10. Put the cursor in the word before clicking the add button.
-
-   ![](Images/adddp.png)
 
 11. Save the word document and close it. 
 
@@ -743,8 +743,8 @@ Contoso O365 Doc Sync Code Sample
 
    ![](Images/SQLServerOjbectExplorer.png)
 
-6. Select the database and connect it.
-
+6. Click Add SQL Server and the select the database and connect it.
+	
    - The Server name will be automatically filled after selecting the DB.
 
    - Fill the correct DB.
@@ -764,7 +764,6 @@ Contoso O365 Doc Sync Code Sample
    - View the table data by clicking view data.
 
      ![](Images/ViewTableData.png)
-
    ​
 
 ## How to view data in the storage account? 
@@ -785,27 +784,25 @@ Contoso O365 Doc Sync Code Sample
 
 4. Download the Azure Storage Explorer.
 
-   - Download the Azure Storage Explorer from the following location [http://storageexplorer.com](http://storageexplorer.com)
+   - Download the Azure Storage Explorer from the following location [http://storageexplorer.com](http://storageexplorer.com)​
 
-     ​
-
-5. Use the API key to connect the storage account in Azure Explorer Explorer.
+5. Use a storage account name and key to connect it in Azure Explorer Explorer.
 
    - Connect to Azure Storage.
 
      ![](Images/AzureStorageExplorer.png)
 
-   - Copy the access key from the step 3 above and paste into the textbox below.
+   - Copy the storage account name and access key from the step 3 above and fill them in the form below.
 
      ![](Images/ConnectAzureStorage.png)
 
-   - Fill the storage account name (**For example: **contosoo365docsyncqa)
-
-     ![](Images/FillAccountName.png)
+   - Click Next and then click Connect.
 
 6. Check the queue/table.
 
    - The publish queue & publish table is created under the queues/tables.
+
+		> **NOTE**: The publish queue and table will be created when you publish source point in Excel add-in. So please publish the source point before to check the queue and tabe.
 
       ![](Images/queueandtable.png)
 
@@ -822,7 +819,6 @@ Contoso O365 Doc Sync Code Sample
       If the status value is Error, it means there is some error processing this item(UI shows the error notification.)
 
    ![](Images/publishstatus.png)
-
    ​
 
 ## How to check WebJob status?
@@ -834,8 +830,6 @@ Contoso O365 Doc Sync Code Sample
 3. Go to the *WebJobs* under the website.
 
    ![](Images/SelectWebJobs.png)
-
-
 
 4. Ensure the WEBJOB status is running.
 
@@ -930,7 +924,7 @@ Contoso O365 Doc Sync Code Sample
 
    - Work with your O365 admin to go to admin consent page in the browser. 
 
-     **For example:** `https://localhost:44394/Admin/Consents`
+     **For example:** `https://localhost:44394/Admin/Consent`
 
    - Use the O365 admin account to login and click admin consent button. 
 
@@ -943,8 +937,6 @@ Contoso O365 Doc Sync Code Sample
      - Select the range (only one cell is supported, please do not double click the cell.  Click Esc if double click the cell.)
      
      - Click the populating cell address button
-     
-     - Select group
      
      - Select the range (only one cell is supported, please do not double click the cell.  Click Esc if double click the cell.)
      
@@ -972,18 +964,13 @@ Contoso O365 Doc Sync Code Sample
 
    - Click add and edit the destination form.
 
-   - Select the Excel file hosts the source points and select one source point just created. 
+   - Select the Excel file hosts the source points. 
 
      ![](Images/fileexplorer.png)
 
+   - Put the cursor in the word then select one source point just created and then click the Add button.
+
      ![](Images/selectsps.png)
-
-   - Put the cursor in the word before clicking the add button.
-
-   - Click Add to add the destination point.
-
-     ![](Images/adddp.png)
-
 
 11. Set ContosoO365DocSyncPowerPoint as StartUp project and press F5
 
