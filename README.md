@@ -160,8 +160,6 @@ Contoso O365 Doc Sync Code Sample
 
 	 ![](Images/ObtainSeretKeys.png)
 
-	 - Store the copied client secret.
-
 10. Configure the reply URLS..
 
      - On the application, click Reply URLs..
