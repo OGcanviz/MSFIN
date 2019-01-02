@@ -2111,14 +2111,39 @@ var point = (function () {
                                     });
                                 }
                             });
-
-                            $.each(options.data, function (_i, _d) {
-                                if (_d.Clone) {
-                                    _d.DestinationFileDocumentId = that.action.clone.getDocumentId({ Url: _d.DestinationFileUrl, data: _j });
+                            // ensure file done
+                            if (result.data.value.length < options.data.length) {
+                                that.action.clone.copy(options, callback);
+                            } else {
+                                //ensure document id done
+                                var isDocumentIdDone = true;
+                                
+                                for (var docIndex = 0; docIndex < _j.length; docIndex++) {
+                                    var generatedDocumentId = _j[docIndex].DocumentId;
+                                    if (generatedDocumentId == "") {
+                                        isDocumentIdDone = false;
+                                        break;
+                                    }
+                                    //ensure document id correct
+                                    for (var sourceDocIndex = 0; sourceDocIndex < options.data.length; sourceDocIndex++) {
+                                        if (generatedDocumentId == options.data[sourceDocIndex].DocumentId) {
+                                            isDocumentIdDone = false;
+                                            break;
+                                        }
+                                    }
                                 }
-                            });
+                                if (isDocumentIdDone === false) {
+                                    that.action.clone.copy(options, callback);
+                                } else {
+                                    $.each(options.data, function (_i, _d) {
+                                        if (_d.Clone) {
+                                            _d.DestinationFileDocumentId = that.action.clone.getDocumentId({ Url: _d.DestinationFileUrl, data: _j });
+                                        }
+                                    });
 
-                            callback({ data: options.data });
+                                    callback({ data: options.data });
+                                }
+                            }
                         }
                         else {
                             that.popup.message({ success: false, title: "Get files in destination folder failed." });
